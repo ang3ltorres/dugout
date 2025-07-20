@@ -1,0 +1,11 @@
+#!/bin/bash
+
+INPUT_DIR="./svg"
+OUTPUT_DIR="./png"
+rm -rf "$OUTPUT_DIR" && mkdir "$OUTPUT_DIR"
+
+for svg in "$INPUT_DIR"/*.svg; do
+  filename=$(basename "$svg" .svg)
+  inkscape "$svg" --export-type=png --export-filename="$OUTPUT_DIR/$filename.png"
+done
+
