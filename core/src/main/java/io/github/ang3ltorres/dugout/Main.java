@@ -1,14 +1,19 @@
 package io.github.ang3ltorres.dugout;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.ScreenUtils;
+
+import io.github.ang3ltorres.dugout.level.Level;
+import io.github.ang3ltorres.dugout.level.Test;
+
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 
 public class Main extends ApplicationAdapter
 {
@@ -22,17 +27,21 @@ public class Main extends ApplicationAdapter
   private OrthographicCamera internalCamera;
   private OrthographicCamera screenCamera;
 
+  private Level levelTest;
+
+  public static Assets assets;
+
   private int frameWidth  = 256;
   private int frameHeight = 256;
   private int scale       = 1;
-  private float offsetX   = 0;
-  private float offsetY   = 0;
+  private int offsetX     = 0;
+  private int offsetY     = 0;
 
   @Override
   public void create()
   {
     batch = new SpriteBatch();
-    texture = new Texture(Gdx.files.internal("libgdx.png"));
+    texture = new Texture(Gdx.files.internal("png/character.png"));
     texture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
 
     image = new TextureRegion(texture);
@@ -47,15 +56,19 @@ public class Main extends ApplicationAdapter
     int screenW = Gdx.graphics.getWidth();
     int screenH = Gdx.graphics.getHeight();
     scale = Math.min(screenW / frameWidth, screenH / frameHeight);
-    offsetX = (screenW - frameWidth * scale) / 2.0f;
-    offsetY = (screenH - frameHeight * scale) / 2.0f;
+    offsetX = (screenW - frameWidth * scale) / 2;
+    offsetY = (screenH - frameHeight * scale) / 2;
 
     // Cameras
-    internalCamera = new OrthographicCamera(frameWidth, frameHeight);
-    internalCamera.setToOrtho(true);
+    internalCamera = new OrthographicCamera();
+    internalCamera.setToOrtho(true, frameWidth, frameHeight);
 
-    screenCamera = new OrthographicCamera(screenW, screenH);
-    screenCamera.setToOrtho(true);
+    screenCamera = new OrthographicCamera();
+    screenCamera.setToOrtho(true, screenW, screenH);
+
+    //
+    assets = new Assets();
+    levelTest = new Test();
   }
 
   @Override
@@ -63,15 +76,16 @@ public class Main extends ApplicationAdapter
   {
     // Draw to framebuffer
     framebuffer.begin();
-    ScreenUtils.clear(0.1f, 0.1f, 0.1f, 1);
+    ScreenUtils.clear(250.0f / 255.0f, 128.0f / 255.0f, 114.0f / 255.0f, 1.0f);
     batch.setProjectionMatrix(internalCamera.combined);
     batch.begin();
-    batch.draw(sprite, 0, 0, sprite.getWidth() * 2, sprite.getHeight() * 2); // Draw something
+    // batch.draw(sprite, 0, 0);
+    levelTest.draw(batch);
     batch.end();
     framebuffer.end();
 
     // Draw framebuffer to screen
-    ScreenUtils.clear(0f, 0f, 0f, 1);
+    ScreenUtils.clear(0.9f, 0.8f, 0.8f, 1.0f);
     batch.setProjectionMatrix(screenCamera.combined);
     batch.begin();
     batch.draw(framebufferTexture, offsetX, offsetY, frameWidth * scale, frameHeight * scale);
@@ -82,8 +96,8 @@ public class Main extends ApplicationAdapter
 	public void resize (int width, int height)
   {
     scale = Math.min(width / frameWidth, height / frameHeight);
-    offsetX = (width - frameWidth * scale) / 2.0f;
-    offsetY = (height - frameHeight * scale) / 2.0f;
+    offsetX = (width - frameWidth * scale) / 2;
+    offsetY = (height - frameHeight * scale) / 2;
 
     screenCamera.setToOrtho(true, width, height);
     screenCamera.update();
