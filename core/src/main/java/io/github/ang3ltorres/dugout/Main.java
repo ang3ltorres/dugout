@@ -2,7 +2,6 @@ package io.github.ang3ltorres.dugout;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
@@ -19,7 +18,6 @@ public class Main extends ApplicationAdapter
   private SpriteBatch batch;
   private Texture texture;
   private TextureRegion image;
-  private Sprite sprite;
   private FrameBuffer framebuffer;
   private Texture framebufferTexture;
 
@@ -45,7 +43,6 @@ public class Main extends ApplicationAdapter
 
     image = new TextureRegion(texture);
     image.flip(false, true);
-    sprite = new Sprite(image);
 
     framebuffer = new FrameBuffer(Pixmap.Format.RGBA8888, frameWidth, frameHeight, false);
     framebufferTexture = framebuffer.getColorBufferTexture();
@@ -80,7 +77,6 @@ public class Main extends ApplicationAdapter
     ScreenUtils.clear(250.0f / 255.0f, 128.0f / 255.0f, 114.0f / 255.0f, 1.0f);
     batch.setProjectionMatrix(internalCamera.combined);
     batch.begin();
-    // batch.draw(sprite, 0, 0);
     levelTest.draw(batch);
     batch.end();
     framebuffer.end();

@@ -46,8 +46,12 @@ public class Lwjgl3Launcher {
 
     // Place in left monitor
     Monitor[] monitors = Lwjgl3ApplicationConfiguration.getMonitors();
-    Monitor secondMonitor = monitors[1];
-    configuration.setWindowPosition(secondMonitor.virtualX + 100, secondMonitor.virtualY + 100);
+    if (monitors.length > 1)
+    {
+      Monitor secondMonitor = monitors[1];
+      configuration.setWindowPosition(secondMonitor.virtualX + 100, secondMonitor.virtualY + 100);
+
+    }
 
     return new Lwjgl3Application(new Main(), configuration);
   }
