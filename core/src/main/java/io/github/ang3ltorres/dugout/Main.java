@@ -27,6 +27,7 @@ public class Main extends ApplicationAdapter
   private Level levelTest;
 
   public static Assets assets;
+  public static float delta;
 
   private int frameWidth  = 1280;
   private int frameHeight = 720;
@@ -72,6 +73,8 @@ public class Main extends ApplicationAdapter
   @Override
   public void render()
   {
+    delta = Gdx.graphics.getDeltaTime();
+
     // Draw to framebuffer
     framebuffer.begin();
     ScreenUtils.clear(250.0f / 255.0f, 128.0f / 255.0f, 114.0f / 255.0f, 1.0f);

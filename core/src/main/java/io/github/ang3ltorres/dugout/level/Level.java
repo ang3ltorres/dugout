@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Timer.Task;
 import com.badlogic.gdx.utils.Timer;
 
 import io.github.ang3ltorres.dugout.Assets;
+import io.github.ang3ltorres.dugout.Main;
 
 public class Level
 {
@@ -17,6 +18,9 @@ public class Level
 
 	public final short blockDefault = (short) (((1 & 0xFF) << 8) | (1 & 0xFF) << 0);
 	public final short blockEmpty   = (short) (((0 & 0xFF) << 8) | (0 & 0xFF) << 0);
+
+	public float rowOffset = 0.0f;
+	public float pushSpeed = 3.0f;
 
 	public Level()
 	{
@@ -30,7 +34,7 @@ public class Level
 			levelData[i] = blockDefault;
 
 		taskPush = new TaskPush();
-		Timer.schedule(taskPush, 1, 1.0f);
+		Timer.schedule(taskPush, 1, pushSpeed);
 		// taskPush.cancel();
 	}
 
@@ -41,6 +45,9 @@ public class Level
 
 	public void draw(Batch batch)
 	{
+		rowOffset += Main.delta * (1.0f / pushSpeed);
+		if (rowOffset > 1.0f)
+			rowOffset = 1.0f;
 
 		for (int x = 0; x < width; x++)
 		for (int y = 0; y < height; y++)
@@ -50,7 +57,10 @@ public class Level
 			byte variant = (byte) ((packed >> 0) & 0xFF);
 
 			if (block == 1)
-				batch.draw(Assets.level.region[0], x * 32, y * 32);
+			{
+				float yPos = y - rowOffset;
+				batch.draw(Assets.level.region[0], x * 32, yPos * 32);
+			}
 		}
 	}
 
@@ -65,6 +75,7 @@ public class Level
 				levelData[getBlock(x, height)] = (Math.random() > 0.5f) ? blockDefault : blockEmpty;
 
 			row++;
+			rowOffset = 0.0f;
 		}
 	}
 }
