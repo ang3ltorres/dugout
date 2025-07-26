@@ -4,6 +4,7 @@ import com.badlogic.gdx.Version;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3NativesLoader;
+import com.badlogic.gdx.Graphics.Monitor;
 
 import io.github.ang3ltorres.dugout.Main;
 
@@ -34,19 +35,20 @@ public class Lwjgl3Launcher {
 
   private static Lwjgl3Application createApplication()
   {
-    return new Lwjgl3Application(new Main(), getDefaultConfiguration());
-  }
-
-  private static Lwjgl3ApplicationConfiguration getDefaultConfiguration()
-  {
     Lwjgl3ApplicationConfiguration configuration = new Lwjgl3ApplicationConfiguration();
     configuration.setTitle("dugout");
     configuration.useVsync(false);
     configuration.setForegroundFPS(Lwjgl3ApplicationConfiguration.getDisplayMode().refreshRate + 1);
     configuration.setWindowedMode(1280, 720);
-    //configuration.setDecorated(false);
-    configuration.setBackBufferConfig(8, 8, 8, 8, 16, 2, 0);
+    // configuration.setDecorated(false);
+    // configuration.setBackBufferConfig(8, 8, 8, 8, 16, 2, 0);
     configuration.setWindowIcon("libgdx128.png", "libgdx64.png", "libgdx32.png", "libgdx16.png");
-    return configuration;
+
+    // Place in left monitor
+    Monitor[] monitors = Lwjgl3ApplicationConfiguration.getMonitors();
+    Monitor secondMonitor = monitors[1];
+    configuration.setWindowPosition(secondMonitor.virtualX + 100, secondMonitor.virtualY + 100);
+
+    return new Lwjgl3Application(new Main(), configuration);
   }
 }

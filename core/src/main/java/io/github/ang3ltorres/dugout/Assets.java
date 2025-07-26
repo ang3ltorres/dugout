@@ -5,22 +5,21 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Assets
 {
-	public class ResourceDraw
-	{
-		public Texture texture;
-		public TextureRegion[] region;
-	}
-	public ResourceDraw level;
+  public static class ResourceDraw
+  {
+    public Texture texture;
+    public TextureRegion[] region;
+  }
 
-	public Assets()
-	{
+  public static ResourceDraw level;
 
-		level = new ResourceDraw();
-		level.texture = new Texture("png/dirt.png");
-		
-		level.region = new TextureRegion[1];
-		
-		level.region[0] = new TextureRegion(level.texture);
-		level.region[0].setRegion(0, 0, 32, 32);
-	}
+  static
+  {
+    level = new ResourceDraw();
+    level.texture = new Texture("png/dirt.png");
+
+    level.region = new TextureRegion[1];
+    level.region[0] = new TextureRegion(level.texture);
+    level.region[0].setRegion(0, 0, 32, 32);
+  }
 }

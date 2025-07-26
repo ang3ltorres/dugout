@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import io.github.ang3ltorres.dugout.level.Level;
-import io.github.ang3ltorres.dugout.level.Test;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -31,8 +30,8 @@ public class Main extends ApplicationAdapter
 
   public static Assets assets;
 
-  private int frameWidth  = 256;
-  private int frameHeight = 256;
+  private int frameWidth  = 1280;
+  private int frameHeight = 720;
   private int scale       = 1;
   private int offsetX     = 0;
   private int offsetY     = 0;
@@ -66,9 +65,11 @@ public class Main extends ApplicationAdapter
     screenCamera = new OrthographicCamera();
     screenCamera.setToOrtho(true, screenW, screenH);
 
-    //
-    assets = new Assets();
-    levelTest = new Test();
+    // Load assets (Force static block to load, before using any resource)
+    try { Class.forName("io.github.ang3ltorres.dugout.Assets"); } catch (ClassNotFoundException error) { error.printStackTrace(); }
+
+    // Load level
+    levelTest = new Level();
   }
 
   @Override
