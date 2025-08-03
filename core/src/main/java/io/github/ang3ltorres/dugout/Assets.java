@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Assets
 {
+  private Assets() { }
+
   public static class ResourceDraw
   {
     public Texture texture;
@@ -13,13 +15,21 @@ public class Assets
 
   public static ResourceDraw level;
 
+  public static TextureRegion loadTexture(Texture texture, int x, int y, int width, int height)
+  {
+    TextureRegion textureRegion = new TextureRegion(texture);
+    textureRegion.setRegion(x, y, width, height);
+    textureRegion.flip(false, true);
+    return textureRegion;
+  }
+
   static
   {
     level = new ResourceDraw();
     level.texture = new Texture("png/dirt.png");
 
-    level.region = new TextureRegion[1];
-    level.region[0] = new TextureRegion(level.texture);
-    level.region[0].setRegion(0, 0, 32, 32);
+    level.region = new TextureRegion[2];
+    level.region[0] = loadTexture(level.texture, 0, 0, 32, 32);
+    level.region[1] = loadTexture(level.texture, 32, 0, 32, 32);
   }
 }

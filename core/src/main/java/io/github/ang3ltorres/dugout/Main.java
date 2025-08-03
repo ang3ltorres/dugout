@@ -6,9 +6,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.utils.ScreenUtils;
-
-import io.github.ang3ltorres.dugout.level.Level;
-
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -24,8 +21,6 @@ public class Main extends ApplicationAdapter
   private OrthographicCamera internalCamera;
   private OrthographicCamera screenCamera;
 
-  private Level levelTest;
-
   public static Assets assets;
   public static float delta;
 
@@ -34,6 +29,8 @@ public class Main extends ApplicationAdapter
   private int scale       = 1;
   private int offsetX     = 0;
   private int offsetY     = 0;
+
+  Player player;
 
   @Override
   public void create()
@@ -63,24 +60,26 @@ public class Main extends ApplicationAdapter
     screenCamera = new OrthographicCamera();
     screenCamera.setToOrtho(true, screenW, screenH);
 
-    // Load assets (Force static block to load, before using any resource)
+    // Force static block to load, before using any resource
     try { Class.forName("io.github.ang3ltorres.dugout.Assets"); } catch (ClassNotFoundException error) { error.printStackTrace(); }
+    try { Class.forName("io.github.ang3ltorres.dugout.Level"); } catch (ClassNotFoundException error) { error.printStackTrace(); }
 
-    // Load level
-    levelTest = new Level();
+    player = new Player(256, 256, 4);
   }
 
   @Override
   public void render()
   {
     delta = Gdx.graphics.getDeltaTime();
+    player.update();
 
     // Draw to framebuffer
     framebuffer.begin();
     ScreenUtils.clear(250.0f / 255.0f, 128.0f / 255.0f, 114.0f / 255.0f, 1.0f);
     batch.setProjectionMatrix(internalCamera.combined);
     batch.begin();
-    levelTest.draw(batch);
+    Level.draw(batch);
+    player.draw(batch);
     batch.end();
     framebuffer.end();
 

@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="32"
-   height="32"
-   viewBox="0 0 32 32"
+   width="128"
+   height="128"
+   viewBox="0 0 128 128"
    version="1.1"
    id="SVGRoot"
    sodipodi:docname="dirt.svg"
@@ -29,10 +29,10 @@
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
      inkscape:zoom="4.4406306"
-     inkscape:cx="12.610822"
-     inkscape:cy="39.746607"
+     inkscape:cx="15.31314"
+     inkscape:cy="-5.5172344"
      inkscape:window-width="1920"
-     inkscape:window-height="945"
+     inkscape:window-height="977"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -50,6 +50,18 @@
        y="0" />
   </g>
   <g
+     id="layer1-3"
+     style="font-variation-settings:normal;vector-effect:none;fill:#ff00ff;fill-opacity:1;stroke-width:1.07757;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000"
+     transform="matrix(0.064,0,0,0.064,32.119427,0.15923567)">
+    <rect
+       style="font-variation-settings:normal;vector-effect:none;fill:#ff00ff;fill-opacity:1;stroke-width:1.07757;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000;stop-opacity:1"
+       id="rect126-6"
+       width="500"
+       height="500"
+       x="0"
+       y="0" />
+  </g>
+  <g
      id="layer1-7"
      style="font-variation-settings:normal;vector-effect:none;fill:#ff6600;fill-opacity:1;stroke-width:1.07757;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;-inkscape-stroke:none;stop-color:#000000"
      transform="matrix(0.032,0,0,0.032,8,8)">
@@ -61,4 +73,24 @@
        x="0"
        y="0" />
   </g>
+  <circle
+     style="fill:#000000"
+     id="path446"
+     cx="52.627388"
+     cy="6.9267516"
+     r="3.7420382" />
+  <path
+     style="fill:#ff00ff"
+     d="m 56.050955,9.4745223 -3.383757,-2.1098726 3.264331,-3.7022293 1.950637,3.821656 z"
+     id="path571" />
+  <circle
+     style="fill:#000000"
+     id="path446-7"
+     cx="42.714966"
+     cy="6.8471336"
+     r="3.7420382" />
+  <path
+     style="fill:#ff00ff"
+     d="m 46.138535,9.3949045 -3.383757,-2.109873 3.264331,-3.7022289 1.950637,3.8216559 z"
+     id="path571-5" />
 </svg>
