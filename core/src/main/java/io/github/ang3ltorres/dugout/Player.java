@@ -2,7 +2,6 @@ package io.github.ang3ltorres.dugout;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 
 public class Player
 {
@@ -18,8 +17,11 @@ public class Player
 
 	public void update()
 	{
-		if (Level.isColliding(rect))
-			rect.y += 0.1;
+		// Level.collision(rect);
+
+		xd++;
+		if (Level.collision(rect))
+			System.out.println(String.format("** Collision ** %d", xd));
 	}
 
 	public void draw(Batch batch)

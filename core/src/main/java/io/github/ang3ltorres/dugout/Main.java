@@ -64,7 +64,7 @@ public class Main extends ApplicationAdapter
     try { Class.forName("io.github.ang3ltorres.dugout.Assets"); } catch (ClassNotFoundException error) { error.printStackTrace(); }
     try { Class.forName("io.github.ang3ltorres.dugout.Level"); } catch (ClassNotFoundException error) { error.printStackTrace(); }
 
-    player = new Player(256, 256, 4);
+    player = new Player(40, 40, 4);
   }
 
   @Override
