@@ -1,6 +1,7 @@
 package io.github.ang3ltorres.dugout;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -29,6 +30,8 @@ public class Main extends ApplicationAdapter
   private int scale       = 1;
   private int offsetX     = 0;
   private int offsetY     = 0;
+
+  public static KeyboardInput keyboard;
 
   Player player;
 
@@ -60,17 +63,23 @@ public class Main extends ApplicationAdapter
     screenCamera = new OrthographicCamera();
     screenCamera.setToOrtho(true, screenW, screenH);
 
+    // Input
+    keyboard = new KeyboardInput();
+    Gdx.input.setInputProcessor(keyboard);
+
     // Force static block to load, before using any resource
     try { Class.forName("io.github.ang3ltorres.dugout.Assets"); } catch (ClassNotFoundException error) { error.printStackTrace(); }
     try { Class.forName("io.github.ang3ltorres.dugout.Level"); } catch (ClassNotFoundException error) { error.printStackTrace(); }
 
-    player = new Player(40, 40, 4);
+    player = new Player(0, 0, 4);
   }
 
   @Override
   public void render()
   {
     delta = Gdx.graphics.getDeltaTime();
+    keyboard.update();
+
     player.update();
 
     // Draw to framebuffer

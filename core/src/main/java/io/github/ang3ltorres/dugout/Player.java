@@ -1,13 +1,15 @@
 package io.github.ang3ltorres.dugout;
 
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
+
+import io.github.ang3ltorres.dugout.KeyboardInput;
 
 public class Player
 {
 	int health;
 	Rectangle rect;
-	int xd = 0;
 
 	public Player(float posX, float posY, int health)
 	{
@@ -17,11 +19,13 @@ public class Player
 
 	public void update()
 	{
-		// Level.collision(rect);
+		if (KeyboardInput.keys.get(Keys.D).down) rect.x ++;
+		if (KeyboardInput.keys.get(Keys.A).down) rect.x --;
 
-		xd++;
-		if (Level.collision(rect))
-			System.out.println(String.format("** Collision ** %d", xd));
+		rect.y += 2.0f;
+
+		while (Level.collision(rect))
+			rect.y -= 1.0f;
 	}
 
 	public void draw(Batch batch)

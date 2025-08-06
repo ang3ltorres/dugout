@@ -14,8 +14,9 @@ public class Level
 	public static int row;
 	public static short[] levelData;
 	public static TaskPush taskPush;
+	public static Rectangle rectAux;
 
-	public static float pushSpeed = 1.0f;
+	public static float pushSpeed = 0.5f;
 
 	public static final short blockDefault = (short) (((1 & 0xFF) << 8) | (1 & 0xFF) << 0);
 	public static final short blockEmpty   = (short) (((0 & 0xFF) << 8) | (0 & 0xFF) << 0);
@@ -29,11 +30,13 @@ public class Level
 		levelData = new short[width * height];
 
 		for (int i = 0; i < width * height; i++)
-			levelData[i] = (Math.random() > 0.8f) ? blockEmpty : blockEmpty;
+			levelData[i] = (Math.random() > 0.7f) ? blockDefault : blockEmpty;
 
 		taskPush = new TaskPush();
 		Timer.schedule(taskPush, 1, pushSpeed);
 		// taskPush.cancel();
+
+		rectAux = new Rectangle();
   }
 
 	public static int getBlock(int x, int y)
@@ -54,15 +57,18 @@ public class Level
 		int startY = Math.floorDiv((int) rect.y, 32);
 		int endY = startY + (int) Math.ceil(rect.height / 32);
 
-		// System.out.println(String.format("X:(%d - %d) Y:(%d - %d)", startX, endX, startY, endY));
-
 		for (int x = startX; x <= endX; x++)
 		for (int y = startY; y <= endY; y++)
 		{
+			if (x < 0 | x >= width | y < 0 | y >= height)
+				continue;
+
 			short packed = levelData[getBlock(x, y)];
 			byte block   = (byte) ((packed >> 8) & 0xFF);
 
-			if (block == 1)
+			rectAux.set(x * 32, y * 32, 32, 32);
+
+			if (block == 1 && rectAux.overlaps(rect))
 				return true;
 		}
 
@@ -90,7 +96,7 @@ public class Level
 		{
 
 			for (int x = 0; x < width; x++)
-				levelData[getBlock(x, height)] = (Math.random() > 0.8f) ? blockDefault : blockEmpty;
+				levelData[getBlock(x, height)] = (Math.random() > 0.7f) ? blockDefault : blockEmpty;
 
 			row++;
 		}
